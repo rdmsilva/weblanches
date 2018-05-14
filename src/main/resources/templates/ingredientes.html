@@ -3,22 +3,19 @@
     <head th:include="fragments/base :: header">
         <meta charset="UTF-8">
     </head>
-
     <body>
+    <script th:src="@{/js/app.js}"></script>
     <div th:replace="fragments/base :: menu"></div>
-
         <div class="ui container">
 
             <br>
             <h2>Confirme seu pedido</h2>
             <div class="ui segment">
                 <h4 class="ui header" th:text="${lanche.nome}"></h4>
-                <div class="ui grid">
-                    <div class="four column row">
-                        <div class="left floated column" th:text="${lanche.valor}"></div>
-                    </div>
-                    <div class="row">
+                <div class="ui equal width grid">
+                    <div class="stretched row">
                         <div class="column">
+                            <div class="left floated column" th:text="${'R$ ' + #numbers.formatDecimal(lanche.valor,1,2,'COMMA')}"></div>
 
                             <form id="frmLanche" class="ui form" th:object="${lanche}" th:method="post" th:action="@{/save}">
 
@@ -52,31 +49,37 @@
                                     <div class="header">
                                         Ingredientes
                                     </div>
-
-                                    <div class="ui middle aligned divided list">
-
-                                        <div class="item" th:each="item : ${ingredientes}">
-
-                                            <div class="right floated content">
-                                                <button id="btnAdd" class="ui primary small button" th:onclick="'adicionarIngrediente(\'' + ${item.id} + '\');'">Adicionar</button>
+                                    <div class="content">
+                                        <div class="ui middle aligned divided list">
+                                            <div class="item" th:each="item : ${ingredientes}">
+                                                <div class="right floated content">
+                                                    <button id="btnAdd" class="ui primary small button" th:onclick="'adicionarIngrediente(\'' + ${item.id} + '\');'">Adicionar</button>
+                                                </div>
+                                                <div th:text="${item.nome + ' - R$ ' + #numbers.formatDecimal(item.valor,1,2,'COMMA')}"></div>
                                             </div>
-                                            <div class="content">
-                                                <div th:text="${item.nome}"></div>
-                                            </div>
-
-                                            <div class="content">
-                                                <div th:text="${item.valor}"></div>
-                                            </div>
-
                                         </div>
-
                                     </div>
                                 </div>
-
                             </form>
-
                         </div>
+
+                        <div class="six wide column">
+                            <div th:if="${lanche.id} == 1">
+                                <img class="ui centered small image" src="/img/x-bacont.png">
+                            </div>
+                            <div th:if="${lanche.id} == 2">
+                                <img class="ui centered small image" src="/img/x-burguert.png">
+                            </div>
+                            <div th:if="${lanche.id} == 3">
+                                <img class="ui centered small image" src="/img/x-eggt.png">
+                            </div>
+                            <div th:if="${lanche.id} == 4">
+                                <img class="ui centered small image" src="/img/x-eggbacont.png">
+                            </div>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
 
@@ -84,17 +87,3 @@
 
     </body>
 </html>
-
-<script>
-
-    $("#addIngredientes").click(function(){
-        $('.mini.modal').modal('show');
-    });
-
-    function adicionarIngrediente(idIngrediente)
-    {
-        $("#frmLanche").attr("action", "/addIngrediente/?idIngrediente="+idIngrediente);
-        $("#frmLanche").submit();
-    }
-
-</script>

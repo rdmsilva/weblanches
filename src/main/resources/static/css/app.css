@@ -1,6 +1,7 @@
-/*#index.margin .fluid{
-    margin-top: 50px;
-    margin-left: 25px;
-    margin-right: 25px;
-}*/
+.noPaddingTop {
+    padding-top: 0px !important;
+}
 
+.noPaddingBottom {
+    padding-bottom: 0px !important;
+}

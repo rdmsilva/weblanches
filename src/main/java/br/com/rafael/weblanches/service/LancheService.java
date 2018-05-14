@@ -61,18 +61,20 @@ public class LancheService {
         List<Ingrediente> ingredienteList = lanche.getIngredienteList();
         List<Ingrediente> ingredientesAux = new ArrayList<>(lanche.getIngredienteList());
 
-        desconto = ingredienteList.stream().anyMatch(i -> i.getNome().equals(Constante.ALFACE) && !i.getNome().equals(Constante.BACON));
+        desconto = ingredienteList.stream()
+                        .anyMatch(i -> i.getNome().equals(Constante.INGREDIENTE_ALFACE)
+                                        && !i.getNome().equals(Constante.INGREDIENTE_BACON));
 
         for (Ingrediente i : ingredienteList) {
 
-            if (i.getNome().equals(Constante.HAMBURGUER_DE_CARNE)){
+            if (i.getNome().equals(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE)){
                 contCarne++;
                 if (contCarne % 3 == 0){
                     ingredientesAux.remove(contCarne-1);
                 }
             }
 
-            if (i.getNome().equals(Constante.QUEIJO)){
+            if (i.getNome().equals(Constante.INGREDIENTE_QUEIJO)){
                 contQueijo++;
                 if (contQueijo % 3 == 0){
                     ingredientesAux.remove(contQueijo-1);

@@ -1,8 +1,10 @@
 package br.com.rafael.weblanches.controller;
 
 import br.com.rafael.weblanches.entity.Lanche;
+import br.com.rafael.weblanches.entity.Pedido;
 import br.com.rafael.weblanches.repository.IngredienteRepository;
 import br.com.rafael.weblanches.repository.LancheRepository;
+import br.com.rafael.weblanches.repository.PedidoRepository;
 import br.com.rafael.weblanches.service.LancheService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ public class LancheController {
     private IngredienteRepository ingredienteRepository;
     private LancheService lancheService;
     private LancheRepository lancheRepository;
+    private PedidoRepository pedidoRepository;
 
     public LancheController(IngredienteRepository ingredienteRepository, LancheService lancheService, LancheRepository lancheRepository) {
         this.ingredienteRepository = ingredienteRepository;
@@ -37,7 +40,6 @@ public class LancheController {
         return "ingredientes";
     }
 
-
     @GetMapping("/{id}")
     public String get(@PathVariable Integer id, Model model){
         model.addAttribute("lanche", lancheRepository.getById(id));
@@ -48,7 +50,11 @@ public class LancheController {
     @PostMapping("/save")
     public ResponseEntity<Lanche> save(@ModelAttribute Lanche lanche) {
 
-        System.out.println("salvando...");
+        Pedido pedido = new Pedido();
+
+//        pedido.setLanche(lanche);
+
+        pedidoRepository.save(pedido);
 
         return ResponseEntity.ok().build();
     }

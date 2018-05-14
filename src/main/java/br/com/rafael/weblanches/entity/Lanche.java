@@ -17,10 +17,8 @@ public class Lanche {
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="lanche_ingrediente",
-            joinColumns={@JoinColumn(name="lanche_id",
-                    referencedColumnName="id")},
-            inverseJoinColumns={@JoinColumn(name="ingrediente_id",
-                    referencedColumnName="id")})
+               joinColumns={@JoinColumn(name="lanche_id", referencedColumnName="id")},
+               inverseJoinColumns={@JoinColumn(name="ingrediente_id", referencedColumnName="id")})
     private List<Ingrediente> ingredienteList;
 
     public Lanche() {
