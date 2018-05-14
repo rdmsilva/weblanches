@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en">
+    <head th:include="fragments/base :: header">
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+    <div th:replace="fragments/base :: menu"></div>
+
+        <div class="ui container">
+
+            <br>
+            <h2>Confirme seu pedido</h2>
+            <div class="ui segment">
+                <h4 class="ui header" th:text="${lanche.nome}"></h4>
+                <div class="ui grid">
+                    <div class="four column row">
+                        <div class="left floated column" th:text="${lanche.valor}"></div>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+
+                            <form id="frmLanche" class="ui form" th:object="${lanche}" th:method="post" th:action="@{/save}">
+
+                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.id}"/>
+                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.nome}"/>
+                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.valor}"/>
+                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.ingredienteList}"/>
+
+                                <div class="fields">
+                                    <ul>
+                                        <li th:each="item : ${lanche.ingredienteList}">
+                                            <label th:text="${item.nome}"></label>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="inline fields">
+                                    <div class="field">
+                                        <button class="ui primary submit button" th:type="submit">Confirmar</button>
+                                    </div>
+                                    <div class="field">
+                                        <a class="ui button" th:href="@{/}">Voltar</a>
+                                    </div>
+                                    <div class="field">
+                                        <a id="addIngredientes" class="ui button">Adicionar Ingrediente</a>
+                                    </div>
+                                </div>
+
+
+                                <div class="ui mini modal">
+                                    <div class="header">
+                                        Ingredientes
+                                    </div>
+
+                                    <div class="ui middle aligned divided list">
+
+                                        <div class="item" th:each="item : ${ingredientes}">
+
+                                            <div class="right floated content">
+                                                <button id="btnAdd" class="ui primary small button" th:onclick="'adicionarIngrediente(\'' + ${item.id} + '\');'">Adicionar</button>
+                                            </div>
+                                            <div class="content">
+                                                <div th:text="${item.nome}"></div>
+                                            </div>
+
+                                            <div class="content">
+                                                <div th:text="${item.valor}"></div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>
+
+<script>
+
+    $("#addIngredientes").click(function(){
+        $('.mini.modal').modal('show');
+    });
+
+    function adicionarIngrediente(idIngrediente)
+    {
+        $("#frmLanche").attr("action", "/addIngrediente/?idIngrediente="+idIngrediente);
+        $("#frmLanche").submit();
+    }
+
+</script>

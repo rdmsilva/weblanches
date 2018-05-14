@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en">
+<head th:include="fragments/base :: header">
+    <meta charset="UTF-8">
+</head>
+    <body>
+        <div th:replace="fragments/base :: menu"></div>
+
+        <div class="ui container">
+
+            <br>
+            <h2>Escolha seu Lanche</h2>
+
+            <div class="ui four item menu">
+                <a class="item" th:href="@{/1}">
+                    <div class="ui label">X-Bacon</div>
+                    <img class="ui centered small image" src="/img/x-bacont.png">
+                </a>
+                <a class="item" th:href="@{/2}">
+                    <div class="ui label">X-Burger</div>
+                    <img class="ui centered small image" src="/img/x-burguert.png">
+                </a>
+                <a class="item" th:href="@{/3}">
+                    <div class="ui label">X-Egg</div>
+                    <img class="ui centered small image" src="/img/x-eggt.png">
+                </a>
+                <a class="item" th:href="@{/4}">
+                    <div class="ui label">X-Egg Bacon</div>
+                    <img class="ui centered small image" src="/img/x-eggbacont.png">
+                </a>
+            </div>
+
+            <br>
+
+        </div>
+    </body>
+</html>
+
+<script>
+        $('.ui.dropdown').dropdown();
+</script>

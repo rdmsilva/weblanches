@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/semantic/semantic.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/app.css}">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/semantic/semantic.min.js}"></script>
+    <title>WebLanches</title>
+</head>
+    <body>
+
+    <div class="ui stackable menu" th:fragment="menu">
+        <div class="item">
+            <img src="/img/logo.png">
+        </div>
+        <a class="item active">WebLanches</a>
+    </div>
+
+    </body>
+</html>
