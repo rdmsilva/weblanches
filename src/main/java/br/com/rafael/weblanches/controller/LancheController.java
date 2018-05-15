@@ -6,7 +6,6 @@ import br.com.rafael.weblanches.repository.IngredienteRepository;
 import br.com.rafael.weblanches.repository.LancheRepository;
 import br.com.rafael.weblanches.repository.PedidoRepository;
 import br.com.rafael.weblanches.service.LancheService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +20,11 @@ public class LancheController {
     private LancheRepository lancheRepository;
     private PedidoRepository pedidoRepository;
 
-    public LancheController(IngredienteRepository ingredienteRepository, LancheService lancheService, LancheRepository lancheRepository) {
+    public LancheController(IngredienteRepository ingredienteRepository, LancheService lancheService, LancheRepository lancheRepository, PedidoRepository pedidoRepository) {
         this.ingredienteRepository = ingredienteRepository;
         this.lancheService = lancheService;
         this.lancheRepository = lancheRepository;
+        this.pedidoRepository = pedidoRepository;
     }
 
     public String index (){
@@ -37,26 +37,32 @@ public class LancheController {
         model.addAttribute("lanche", lancheService.adicionaIngrediente(lanche, idIngrediente));
         model.addAttribute("ingredientes", ingredienteRepository.findAll());
 
-        return "ingredientes";
+        return "confirmacao";
     }
 
     @GetMapping("/{id}")
     public String get(@PathVariable Integer id, Model model){
         model.addAttribute("lanche", lancheRepository.getById(id));
         model.addAttribute("ingredientes", ingredienteRepository.findAll());
-        return "ingredientes";
+        return "confirmacao";
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Lanche> save(@ModelAttribute Lanche lanche) {
+    public String save(@ModelAttribute Lanche lanche, Model model) {
 
         Pedido pedido = new Pedido();
-
-//        pedido.setLanche(lanche);
-
+        pedido.setLanche(lanche);
         pedidoRepository.save(pedido);
 
-        return ResponseEntity.ok().build();
+        model.addAttribute("pedido", pedido);
+
+        return "finalizado";
+    }
+
+    @GetMapping("/pedidos")
+    public String pedidos(Model model){
+        model.addAttribute("pedidoList", pedidoRepository.findAll());
+        return "pedidos";
     }
 
 

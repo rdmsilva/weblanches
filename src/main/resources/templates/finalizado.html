@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en">
+    <head th:include="fragments/base :: header">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div th:replace="fragments/base :: menu"></div>
+
+        <div class="ui container">
+
+            <br>
+            <h2>Pedido realizado.</h2>
+
+            <div class="ui segment" th:object="${pedido}">
+                <p class="header" th:text="${'Lanche: ' + pedido.lanche.nome}"></p>
+                <p th:text="${'Total R$ ' + #numbers.formatDecimal(pedido.lanche.preco,1,2,'COMMA')}"></p>
+
+                <p>Ingredientes:</p>
+                <div class="fields">
+                    <ul>
+                        <li th:each="item : ${pedido.lanche.ingredienteList}">
+                            <label th:text="${item.nome}"></label>
+                        </li>
+                    </ul>
+                </div>
+
+                <a class="ui button" th:href="@{/}">Voltar</a>
+
+            </div>
+
+            <br>
+
+        </div>
+    </body>
+</html>

@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "ingrediente")
 public class Ingrediente {
 
     @Id
@@ -13,7 +12,7 @@ public class Ingrediente {
 
     private String nome;
 
-    private Double valor;
+    private Double preco;
 
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="lanche_ingrediente",
@@ -40,12 +39,12 @@ public class Ingrediente {
         this.nome = nome;
     }
 
-    public Double getValor() {
-        return valor;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
+    public void setPreco(Double preco) {
+        this.preco = preco;
     }
 
     public String getNome() {

@@ -1,9 +1,6 @@
 package br.com.rafael.weblanches.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 @Entity
 public class Pedido {
@@ -12,8 +9,9 @@ public class Pedido {
     @GeneratedValue
     private Integer id;
 
-//    @JoinColumn(name = "lanche_id")
-//    private Lanche lanche;
+    @OneToOne
+    @JoinColumn(name = "lanche")
+    private Lanche lanche;
 
     public Pedido() {
     }
@@ -26,11 +24,12 @@ public class Pedido {
         this.id = id;
     }
 
-//    public Lanche getLanche() {
-//        return lanche;
-//    }
-//
-//    public void setLanche(Lanche lanche) {
-//        this.lanche = lanche;
-//    }
+    public Lanche getLanche() {
+        return lanche;
+    }
+
+    public void setLanche(Lanche lanche) {
+        this.lanche = lanche;
+    }
+
 }

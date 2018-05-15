@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "lanche")
 public class Lanche {
 
     @Id
@@ -13,13 +12,14 @@ public class Lanche {
 
     private String nome;
 
-    private Double valor;
+    private Double preco;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="lanche_ingrediente",
                joinColumns={@JoinColumn(name="lanche_id", referencedColumnName="id")},
                inverseJoinColumns={@JoinColumn(name="ingrediente_id", referencedColumnName="id")})
     private List<Ingrediente> ingredienteList;
+
 
     public Lanche() {
     }
@@ -40,19 +40,19 @@ public class Lanche {
         this.nome = nome;
     }
 
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
     public List<Ingrediente> getIngredienteList() {
         return ingredienteList;
     }
 
     public void setIngredienteList(List<Ingrediente> ingredienteList) {
         this.ingredienteList = ingredienteList;
-    }
-
-    public Double getValor() {
-        return valor;
-    }
-
-    public void setValor(Double valor) {
-        this.valor = valor;
     }
 }

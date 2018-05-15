@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
     </head>
     <body>
-    <script th:src="@{/js/app.js}"></script>
-    <div th:replace="fragments/base :: menu"></div>
+        <script th:src="@{/js/app.js}"></script>
+        <div th:replace="fragments/base :: menu"></div>
         <div class="ui container">
 
             <br>
@@ -15,13 +15,13 @@
                 <div class="ui equal width grid">
                     <div class="stretched row">
                         <div class="column">
-                            <div class="left floated column" th:text="${'R$ ' + #numbers.formatDecimal(lanche.valor,1,2,'COMMA')}"></div>
+                            <div class="left floated column" th:text="${'R$ ' + #numbers.formatDecimal(lanche.preco,1,2,'COMMA')}"></div>
 
                             <form id="frmLanche" class="ui form" th:object="${lanche}" th:method="post" th:action="@{/save}">
 
                                 <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.id}"/>
                                 <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.nome}"/>
-                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.valor}"/>
+                                <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.preco}"/>
                                 <input type="hidden" class="hidden" th:readonly="true" th:field="${lanche.ingredienteList}"/>
 
                                 <div class="fields">
@@ -55,7 +55,7 @@
                                                 <div class="right floated content">
                                                     <button id="btnAdd" class="ui primary small button" th:onclick="'adicionarIngrediente(\'' + ${item.id} + '\');'">Adicionar</button>
                                                 </div>
-                                                <div th:text="${item.nome + ' - R$ ' + #numbers.formatDecimal(item.valor,1,2,'COMMA')}"></div>
+                                                <div th:text="${item.nome + ' - R$ ' + #numbers.formatDecimal(item.preco,1,2,'COMMA')}"></div>
                                             </div>
                                         </div>
                                     </div>

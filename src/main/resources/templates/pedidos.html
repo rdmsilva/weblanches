@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="no-js" lang="en">
+    <head th:include="fragments/base :: header">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div th:replace="fragments/base :: menu"></div>
+
+        <div class="ui container">
+
+            <br>
+            <h2>Pedidos Realizados</h2>
+            <div class="ui segment">
+                <div class="ui list">
+                    <div class="item" th:each="item : ${pedidoList}">
+                        <i class="check square middle icon"></i>
+                        <div class="content">
+                            <div class="header" th:text="${item.lanche.nome}"></div>
+                            <div class="description" th:text="${'R$ ' + #numbers.formatDecimal(item.lanche.preco,1,2,'COMMA')}"></div>
+                            <div class="list">
+                                <div class="item">
+                                    <div class="content">
+                                        <div class="header">Ingredientes</div>
+                                        <div class="desciption" th:each="i : ${item.lanche.ingredienteList}">
+                                            <div th:text="${i.nome}"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>

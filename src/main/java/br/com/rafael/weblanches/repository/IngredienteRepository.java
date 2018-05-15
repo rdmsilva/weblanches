@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface IngredienteRepository extends JpaRepository<Ingrediente, Integer> {
 
     Ingrediente getById(Integer id);
+    Ingrediente findByNome(String nome);
 
 }

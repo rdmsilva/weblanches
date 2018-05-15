@@ -42,6 +42,16 @@ public class LancheService {
     }
 
     /**
+     * Calcula o valor de tabela do lanche.
+     *
+     * @param lanche  lanche.
+     * @return        valor do lanche.
+     */
+    public Double calculaPrecoLanche(Lanche lanche){
+        return lanche.getIngredienteList().stream().mapToDouble(Ingrediente::getPreco).sum();
+    }
+
+    /**
      * Atualiza o valor do lanche conforme as Regras das Promoções:
      *
      * - Se o lanche tem alface e não tem bacon, ganha 10% de desconto.
@@ -82,13 +92,13 @@ public class LancheService {
             }
         }
 
-        total = ingredientesAux.stream().mapToDouble(Ingrediente::getValor).sum();
+        total = ingredientesAux.stream().mapToDouble(Ingrediente::getPreco).sum();
 
         if (desconto){
             total = total * 0.90;
         }
 
-        lanche.setValor(total);
+        lanche.setPreco(total);
     }
 
 }
