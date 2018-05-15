@@ -47,4 +47,64 @@ public class WeblanchesApplicationTests {
 
 	}
 
+	@Test
+	public void testPrecoComPromocaoDesconto(){
+		Lanche lanche = new Lanche();
+		List<Ingrediente> ingredientes = new ArrayList<>();
+		lanche.setNome("X-Burguer");
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_ALFACE));
+		lanche.setIngredienteList(ingredientes);
+		lanche.setPreco(lancheService.calculaPrecoLanche(lanche));
+
+		Double valorEsperado = lancheService.calculaPrecoLanche(lanche) * 0.90;
+		lancheService.aplicaPromocoes(lanche);
+
+		Assert.assertEquals("Desconto 10%", valorEsperado, lanche.getPreco());
+
+	}
+
+	@Test
+	public void testPrecoComPromocaoTresHamburguer(){
+		Lanche lanche = new Lanche();
+		List<Ingrediente> ingredientes = new ArrayList<>();
+		lanche.setNome("X-Egg Bacon");
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_OVO));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_BACON));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO));
+		lanche.setIngredienteList(ingredientes);
+		lanche.setPreco(lancheService.calculaPrecoLanche(lanche));
+
+		Double valorEsperado = lanche.getPreco() - ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE).getPreco();
+		lancheService.aplicaPromocoes(lanche);
+
+		Assert.assertEquals("Promocao 3 Hamburgues", valorEsperado, lanche.getPreco());
+
+	}
+
+	@Test
+	public void testPrecoComPromocaoTresQueijos(){
+		Lanche lanche = new Lanche();
+		List<Ingrediente> ingredientes = new ArrayList<>();
+		lanche.setNome("X-Egg Bacon");
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_OVO));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_BACON));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO));
+		ingredientes.add(ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO));
+		lanche.setIngredienteList(ingredientes);
+		lanche.setPreco(lancheService.calculaPrecoLanche(lanche));
+
+		Double valorEsperado = lanche.getPreco() - ingredienteRepository.findByNome(Constante.INGREDIENTE_QUEIJO).getPreco();
+		lancheService.aplicaPromocoes(lanche);
+
+		Assert.assertEquals("Promoção três Queijos", valorEsperado, lanche.getPreco());
+
+	}
+
 }

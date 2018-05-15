@@ -61,7 +61,7 @@ public class LancheService {
      * @param lanche lanche
      * @return       lanche com o valor atualizado.
      */
-    private void aplicaPromocoes(Lanche lanche) {
+    public void aplicaPromocoes(Lanche lanche) {
 
         boolean desconto;
         int contCarne = 0;
@@ -80,14 +80,14 @@ public class LancheService {
             if (i.getNome().equals(Constante.INGREDIENTE_HAMBURGUER_DE_CARNE)){
                 contCarne++;
                 if (contCarne % 3 == 0){
-                    ingredientesAux.remove(contCarne-1);
+                    ingredientesAux.remove(ingredienteList.indexOf(i));
                 }
             }
 
             if (i.getNome().equals(Constante.INGREDIENTE_QUEIJO)){
                 contQueijo++;
                 if (contQueijo % 3 == 0){
-                    ingredientesAux.remove(contQueijo-1);
+                    ingredientesAux.remove(ingredienteList.indexOf(i));
                 }
             }
         }
