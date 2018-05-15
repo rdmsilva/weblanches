@@ -20,6 +20,12 @@ public class Ingrediente {
                inverseJoinColumns={@JoinColumn(name="lanche_id", referencedColumnName="id")})
     private List<Lanche> lancheList;
 
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="p_lanche_ingrediente",
+            joinColumns={@JoinColumn(name="ingrediente_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="p_lanche_id", referencedColumnName="id")})
+    private List<Lanche> lancheListPedido;
+
     public Ingrediente() {
     }
 
@@ -61,5 +67,13 @@ public class Ingrediente {
 
     public void setLancheList(List<Lanche> lancheList) {
         this.lancheList = lancheList;
+    }
+
+    public List<Lanche> getLancheListPedido() {
+        return lancheListPedido;
+    }
+
+    public void setLancheListPedido(List<Lanche> lancheListPedido) {
+        this.lancheListPedido = lancheListPedido;
     }
 }

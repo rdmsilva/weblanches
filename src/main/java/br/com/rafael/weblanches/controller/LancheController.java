@@ -2,8 +2,10 @@ package br.com.rafael.weblanches.controller;
 
 import br.com.rafael.weblanches.entity.Lanche;
 import br.com.rafael.weblanches.entity.Pedido;
+import br.com.rafael.weblanches.entity.PedidoLanche;
 import br.com.rafael.weblanches.repository.IngredienteRepository;
 import br.com.rafael.weblanches.repository.LancheRepository;
+import br.com.rafael.weblanches.repository.PedidoLancheRepository;
 import br.com.rafael.weblanches.repository.PedidoRepository;
 import br.com.rafael.weblanches.service.LancheService;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,14 @@ public class LancheController {
     private LancheService lancheService;
     private LancheRepository lancheRepository;
     private PedidoRepository pedidoRepository;
+    private PedidoLancheRepository pedidoLancheRepository;
 
-    public LancheController(IngredienteRepository ingredienteRepository, LancheService lancheService, LancheRepository lancheRepository, PedidoRepository pedidoRepository) {
+    public LancheController(IngredienteRepository ingredienteRepository, LancheService lancheService, LancheRepository lancheRepository, PedidoRepository pedidoRepository, PedidoLancheRepository pedidoLancheRepository) {
         this.ingredienteRepository = ingredienteRepository;
         this.lancheService = lancheService;
         this.lancheRepository = lancheRepository;
         this.pedidoRepository = pedidoRepository;
+        this.pedidoLancheRepository = pedidoLancheRepository;
     }
 
     public String index (){
@@ -51,7 +55,12 @@ public class LancheController {
     public String save(@ModelAttribute Lanche lanche, Model model) {
 
         Pedido pedido = new Pedido();
-        pedido.setLanche(lanche);
+        PedidoLanche pedidoLanche = new PedidoLanche();
+        pedidoLanche.setNome(lanche.getNome());
+        pedidoLanche.setPreco(lanche.getPreco());
+        pedidoLanche.setIngredienteList(lanche.getIngredienteList());
+
+        pedido.setPedidoLanche(pedidoLancheRepository.save(pedidoLanche));
         pedidoRepository.save(pedido);
 
         model.addAttribute("pedido", pedido);

@@ -11,7 +11,7 @@ public class Pedido {
 
     @OneToOne
     @JoinColumn(name = "lanche")
-    private Lanche lanche;
+    private PedidoLanche lanche;
 
     public Pedido() {
     }
@@ -24,11 +24,11 @@ public class Pedido {
         this.id = id;
     }
 
-    public Lanche getLanche() {
+    public PedidoLanche getLanche() {
         return lanche;
     }
 
-    public void setLanche(Lanche lanche) {
+    public void setPedidoLanche(PedidoLanche lanche) {
         this.lanche = lanche;
     }
 
