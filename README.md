@@ -1,3 +1,3 @@
 # weblanches
 
-h2, Spring Boot, Thymeleaf e Semantics.
+Spring Boot, Jpa Hibernate, h2, Thymeleaf e Semantics.
